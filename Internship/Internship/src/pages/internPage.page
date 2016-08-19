@@ -1,0 +1,32 @@
+<apex:page controller="internPageController">
+  <apex:form >
+    <apex:pageBlock title="Interns">
+    
+        <apex:pageBlockButtons >
+          <a id="thePage:theForm:theCommandLink" href="https://eu6.salesforce.com/a02/e?retURL=%2Fa02%2Fo" target="_blank">New </a>
+        </apex:pageBlockButtons>
+        
+        <apex:outputText value="Count of interns: {!countInterns }"/>
+        
+      <apex:pageBlockSection >
+        <apex:pageBlockTable value="{!interns}" var="intern">
+          
+          <apex:column headerValue="Name">
+             <a href="https://eu6.salesforce.com/{!intern.Id}" target="_blank">{!intern.Name}</a>
+          </apex:column>       
+          <apex:column value="{!intern.Group__r.Name}" headerValue="Group"/>
+          <apex:column value="{!intern.Email__c}" headerValue="Email"/>
+          <apex:column value="{!intern.Phone__c}" headerValue="Phone"/>
+          <apex:column value="{!intern.Skype_id__c}" headerValue="Skype id"/>
+          <apex:column value="{!intern.Login_for_org__c}" headerValue="Login for org"/>
+          <apex:column value="{!intern.Password_for_org__c}" headerValue="Password for org"/>
+          <apex:column value="{!intern.Rating__c}" headerValue="Rating"/>
+          <apex:column value="{!intern.Trailhead_Progress__c }" headerValue="Trailhead Progress"/>
+          <apex:column value="{!intern.Progress__c}" headerValue="Progress"/>
+          
+        </apex:pageBlockTable>
+      </apex:pageBlockSection>
+      
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

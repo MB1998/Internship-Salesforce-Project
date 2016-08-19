@@ -1,0 +1,45 @@
+<apex:page controller="HomeworkPageController">
+  <apex:form >
+    <apex:pageBlock title="Homeworks">
+    
+        <apex:pageBlockButtons >
+          <a id="thePage:theForm:theCommandLink" href="https://eu6.salesforce.com/a03/e?retURL=%2Fa03%2Fo" target="_blank">New </a>
+        </apex:pageBlockButtons>
+        
+      <apex:pageBlockSection >
+        <apex:pageBlockTable value="{!homeworks}" var="homework">
+          
+          <apex:column headerValue="Name">
+             <a href="https://eu6.salesforce.com/{!homework.Id}" target="_blank">{!homework.Name}</a>
+          </apex:column>       
+          <apex:column value="{!homework.DeadLine__c}" headerValue="Deadline"/>
+          <apex:column value="{!homework.Task__c}" headerValue="Task"/>
+          <apex:column value="{!homework.Topics__c}" headerValue="Topics"/>
+          
+        </apex:pageBlockTable>
+      </apex:pageBlockSection>
+      
+    </apex:pageBlock>
+    
+    
+    <apex:pageBlock title="Intern performance">
+      <apex:pageMessages ></apex:pageMessages>
+      
+      <apex:pageBlockSection >
+        <apex:pageBlockTable value="{!internsPerformance}" var="Performance">
+        
+            <apex:column >
+              <a href="https://eu6.salesforce.com/{!Performance.Intern.Id}" target="_blank"> {!Performance.Intern.Name} </a>
+            </apex:column>
+            
+            <apex:repeat value="{!Performance.homeworksResults}" var="homeworksResults">
+              <apex:column value="{!homeworksResults.HomeworkResult}"/><br/>
+              <apex:column value="{!homeworksResults.HomeworkComment }"/><br/>
+            </apex:repeat>
+        
+        </apex:pageBlockTable>
+      </apex:pageBlockSection>
+      
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

@@ -1,0 +1,44 @@
+<apex:page controller="TestPageController">
+  <apex:form >
+    <apex:pageBlock title="Homeworks">
+    
+        <apex:pageBlockButtons >
+          <a id="thePage:theForm:theCommandLink" href="https://eu6.salesforce.com/a04/e?retURL=%2Fa04%2Fo" target="_blank">New </a>
+        </apex:pageBlockButtons>
+        
+      <apex:pageBlockSection >
+        <apex:pageBlockTable value="{!tests}" var="test">
+          
+          <apex:column headerValue="Name">
+             <a href="https://eu6.salesforce.com/{!test.Id}" target="_blank">{!test.Name}</a>
+          </apex:column>       
+          <apex:column value="{!test.Date__c}" headerValue="Date"/>
+          <apex:column value="{!test.Complexity__c}" headerValue="Complexity"/>
+          <apex:column value="{!test.Topics__c}" headerValue="Topics"/>
+          
+        </apex:pageBlockTable>
+      </apex:pageBlockSection>
+      
+    </apex:pageBlock>
+    
+    
+    <apex:pageBlock title="Intern performance">
+      <apex:pageMessages ></apex:pageMessages>
+      
+      <apex:pageBlockSection >
+        <apex:pageBlockTable value="{!internsPerformance}" var="Performance">
+        
+            <apex:column >
+              <a href="https://eu6.salesforce.com/{!Performance.Intern.Id}" target="_blank"> {!Performance.Intern.Name} </a>
+            </apex:column>
+            
+            <apex:repeat value="{!Performance.testsResults}" var="testsResults">
+              <apex:column value="{!testsResults.TestResult}"/><br/>
+            </apex:repeat>
+        
+        </apex:pageBlockTable>
+      </apex:pageBlockSection>
+      
+    </apex:pageBlock>
+  </apex:form>
+</apex:page>

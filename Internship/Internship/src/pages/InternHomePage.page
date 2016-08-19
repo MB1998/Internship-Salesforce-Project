@@ -1,0 +1,180 @@
+<apex:page controller="InternHomePageController">
+  <apex:form >
+    
+    <apex:outputPanel id="ProfileInformation">
+    <apex:pageMessages ></apex:pageMessages>
+    <apex:pageBlock title="Profile information" rendered="{!(!Editable)}">
+    
+      <apex:pageBlockSection title="General information">
+      
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Name"/>
+          <apex:outputText value="{!intern.Name}"/>
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Email"/>
+          <apex:outputText value="{!intern.Email}" />
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Group"/>
+          <apex:outputText value="{!intern.InternshipGroup}"/>
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Phone"/>
+          <apex:outputText value="{!intern.Phone}"/>
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Rating"/>
+          <apex:outputText value="{!intern.Rating}" />
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Skype id"/>
+          <apex:outputText value="{!intern.Skype_id}" />
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Progress "/>
+          <apex:outputText value="{!intern.Progress }"/>
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Login for org"/>
+          <apex:outputText value="{!intern.Login_for_org }" />
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Trailhead Progress "/>
+          <apex:outputText value="{!intern.TrailheadProgress }"/>
+        </apex:pageBlockSectionItem> 
+                       
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Password for org"/>
+          <apex:outputText value="{!intern.Password_for_org }"/>
+        </apex:pageBlockSectionItem>
+        
+      </apex:pageBlockSection>
+      
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Edit" action="{!edit}" reRender="ProfileInformation"/>
+      </apex:pageBlockButtons>
+      
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Profile information" rendered="{!Editable}">
+    
+      <apex:pageBlockSection title="General information">
+      
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Name"/>
+          <apex:inputText value="{!intern.Name}"/>
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Email"/>
+          <apex:inputText value="{!intern.Email}" />
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Group"/>
+          <apex:outputText value="{!intern.InternshipGroup}"/>
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Phone"/>
+          <apex:inputText value="{!intern.Phone}"/>
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Rating"/>
+          <apex:outputText value="{!intern.Rating}" />
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Skype id"/>
+          <apex:inputText value="{!intern.Skype_id}" />
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Progress "/>
+          <apex:outputText value="{!intern.Progress }"/>
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Login for org"/>
+          <apex:inputText value="{!intern.Login_for_org }" />
+        </apex:pageBlockSectionItem>
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Trailhead Progress "/>
+          <apex:outputText value="{!intern.TrailheadProgress }"/>
+        </apex:pageBlockSectionItem> 
+        
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Password for org"/>
+          <apex:inputText value="{!intern.Password_for_org }"/>
+        </apex:pageBlockSectionItem>
+                       
+      </apex:pageBlockSection>
+      
+      <apex:pageBlockButtons >
+        <apex:commandButton value="Save" action="{!save}" reRender="ProfileInformation"/>
+        <apex:commandButton value="Cancel" action="{!cancel}" reRender="ProfileInformation"/>
+      </apex:pageBlockButtons>
+      
+      
+    </apex:pageBlock>
+    </apex:outputPanel>
+    <apex:outputLabel >{!selected}</apex:outputLabel>
+    <apex:pageBlock title="Homeworks" id="homeworkTable">
+      Count of your homeworks: "{!countHomework}"
+      <apex:pageBlockTable value="{!homeworks}" var="homework">
+        <apex:column value="{!homework.Name}"  headerValue="Name"/>
+        <apex:column value="{!homework.Task}" headerValue="Task"/>
+        <apex:column value="{!homework.Deadline}" headerValue="Deadline"/>
+        <apex:column value="{!homework.LecturerName}" headerValue="Lecturer`s Name"/>
+        <apex:column value="{!homework.LecturerEmail}" headerValue="Lecturer`s Email"/>
+        <apex:column value="{!homework.LecturerSkype}" headerValue="Lecturer`s Skype"/>
+        <apex:column value="{!homework.LecturerOtherContacts}" headerValue="Lecturer`s Other Contacts"/>
+        <apex:column value="{!homework.Topics}" headerValue="Topics"/>
+        <apex:column value="{!homework.Mark}" headerValue="Mark"/>
+        <apex:column value="{!homework.Comment}" headerValue="Comment"/>
+        <apex:column headerValue="Send">
+          <apex:commandButton value="Done" action="{!done}" rendered="{!!homework.isDone}" rerender="homeworkTable ">
+            <apex:param name="selected" value="{!homework.Id}" assignTo="{!selected}"/>
+          </apex:commandButton>
+        </apex:column>
+       
+        
+      </apex:pageBlockTable>
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Tests" id="testTable">
+      Count of your tests: "{!countTest}"
+      <apex:pageBlockTable value="{!tests}" var="test">
+        <apex:column value="{!test.Name}" headerValue="Name"/>
+        <apex:column value="{!test.TestDate}" headerValue="TestDate"/>
+        <apex:column value="{!test.Complexity}" headerValue="Complexity"/>
+        <apex:column value="{!test.LecturerName}" headerValue="Lecturer`s Name"/>
+        <apex:column value="{!test.Topics}" headerValue="Topics"/>
+        <apex:column value="{!test.Mark}" headerValue="Mark"/>
+      </apex:pageBlockTable>
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Recources" id="resourceTable">
+      Count of your available resource: "{!countResource}"
+      <apex:pageBlockTable value="{!resources}" var="resource">
+        <apex:column headerValue="Name">
+          <a href="{!resource.Link}" target="_blank">{!resource.Name}</a>
+        </apex:column>
+        <apex:column value="{!resource.Description}" headerValue="Description"/>
+      </apex:pageBlockTable>
+    </apex:pageBlock>
+    
+  </apex:form>
+  
+</apex:page>
