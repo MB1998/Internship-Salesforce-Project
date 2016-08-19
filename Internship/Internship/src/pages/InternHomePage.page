@@ -144,7 +144,7 @@
         <apex:column value="{!homework.Mark}" headerValue="Mark"/>
         <apex:column value="{!homework.Comment}" headerValue="Comment"/>
         <apex:column headerValue="Send">
-          <apex:commandButton value="Done" action="{!done}" rendered="{!!homework.isDone}" rerender="homeworkTable ">
+          <apex:commandButton value="Done" action="{!done}" rendered="{!!homework.isDone}" rerender="homeworkTable " onclick="confirm('Are you sure, that you have done your homework? Email will be send to lecturer about that')">
             <apex:param name="selected" value="{!homework.Id}" assignTo="{!selected}"/>
           </apex:commandButton>
         </apex:column>
